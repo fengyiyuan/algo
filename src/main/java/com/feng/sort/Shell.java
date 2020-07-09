@@ -1,6 +1,5 @@
 package com.feng.sort;
 
-import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdIn;
 
 public class Shell extends AbstractSortable {
@@ -9,24 +8,22 @@ public class Shell extends AbstractSortable {
     public void sort(Comparable[] a) {
 
         int N = a.length;
-        int h = N / 3;
-        while (h > 0 ) {
+        int h = 1;
+
+        while(h < N / 3) h = 3*h + 1;
+
+        while (h > 0) {
             System.out.println(h);
-            for(int i = h; i < a.length; i += h) {
+            for(int i = h; i < a.length; i++) {
                 if (less(a[i], a[i - h])) {
-                    for (int j = i; j > 0 && less(a[j], a[j - h]); j -= h) {
+                    for (int j = i; j >= h && less(a[j], a[j - h]); j -= h) {
                         exch(a, j, j - h);
                     }
                 }
             }
 
-            if (h == 1) {
-                h = 0;
-            } else if (h < 3) {
-                h = 1;
-            } else {
-                h = h / 3;
-            }
+            h /= 3;
+
         }
 
 
